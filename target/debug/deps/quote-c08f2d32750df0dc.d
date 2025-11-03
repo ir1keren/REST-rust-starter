@@ -1,0 +1,13 @@
+D:\Projects\WebRunner\REST-rust\target\debug\deps\libquote-c08f2d32750df0dc.rmeta: F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\lib.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ext.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\format.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ident_fragment.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\to_tokens.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\runtime.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\spanned.rs
+
+D:\Projects\WebRunner\REST-rust\target\debug\deps\libquote-c08f2d32750df0dc.rlib: F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\lib.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ext.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\format.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ident_fragment.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\to_tokens.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\runtime.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\spanned.rs
+
+D:\Projects\WebRunner\REST-rust\target\debug\deps\quote-c08f2d32750df0dc.d: F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\lib.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ext.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\format.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ident_fragment.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\to_tokens.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\runtime.rs F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\spanned.rs
+
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\lib.rs:
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ext.rs:
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\format.rs:
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\ident_fragment.rs:
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\to_tokens.rs:
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\runtime.rs:
+F:\Apps\rust\registry\src\index.crates.io-1949cf8c6b5b557f\quote-1.0.41\src\spanned.rs:

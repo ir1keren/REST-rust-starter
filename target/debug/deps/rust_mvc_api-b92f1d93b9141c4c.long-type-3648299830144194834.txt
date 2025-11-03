@@ -1,0 +1,1 @@
+fn() -> impl futures::Future<Output = Result<HttpResponse, api_response::ApiError>> {project_controller::create_project}

@@ -1,0 +1,1 @@
+fn({type error}, ntex::web::types::Json<project::ProjectCreate>) -> impl std::future::Future<Output = Result<HttpResponse, api_response::ApiError>> {project_controller::create_project}

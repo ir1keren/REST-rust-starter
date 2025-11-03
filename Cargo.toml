@@ -1,0 +1,45 @@
+[package]
+name = "rust-mvc-api"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "A production-leaning Rust REST API using MVC architecture"
+license = "MIT"
+
+[dependencies]
+# Web framework
+ntex = "2.5"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# UUID and time handling
+uuid = { version = "1.0", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+# Error handling
+thiserror = "1.0"
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Environment variables
+dotenv = "0.15"
+
+# Async runtime
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+futures = "0.3"
+
+# OpenAPI documentation (optional feature)
+utoipa = { version = "4.0", optional = true }
+utoipa-swagger-ui = { version = "7.0", optional = true }
+
+[features]
+default = []
+openapi = ["dep:utoipa", "dep:utoipa-swagger-ui"]
+
+[[bin]]
+name = "rust-mvc-api"
+path = "src/main.rs"
