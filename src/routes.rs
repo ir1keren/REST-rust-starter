@@ -1,9 +1,82 @@
-use ntex::web::{self, ServiceConfig};
+use ntex::web::{self, ServiceConfig, HttpResponse};
 use crate::controllers::{
     health_check,
     create_project, get_project, list_projects, update_project, delete_project,
     create_task, get_task, list_tasks, update_task, delete_task,
 };
+
+#[cfg(feature = "openapi")]
+use utoipa::OpenApi;
+
+#[cfg(feature = "openapi")]
+#[derive(OpenApi)]
+#[openapi(
+    paths(
+        crate::controllers::health_check,
+        crate::controllers::create_project,
+        crate::controllers::get_project,
+        crate::controllers::list_projects,
+        crate::controllers::update_project,
+        crate::controllers::delete_project,
+        crate::controllers::create_task,
+        crate::controllers::get_task,
+        crate::controllers::list_tasks,
+        crate::controllers::update_task,
+        crate::controllers::delete_task,
+    ),
+    components(
+        schemas(crate::models::project::Project),
+        schemas(crate::models::project::ProjectCreate),
+        schemas(crate::models::project::ProjectUpdate),
+        schemas(crate::models::task::Task),
+        schemas(crate::models::task::TaskCreate),
+        schemas(crate::models::task::TaskUpdate),
+        schemas(crate::views::api_response::ApiResponse<crate::models::project::Project>),
+        schemas(crate::views::api_response::ApiResponse<Vec<crate::models::project::Project>>),
+        schemas(crate::views::api_response::ApiResponse<crate::models::task::Task>),
+        schemas(crate::views::api_response::ApiResponse<Vec<crate::models::task::Task>>),
+        schemas(crate::views::api_response::ErrorResponse),
+        schemas(crate::controllers::health_controller::HealthResponse)
+    ),
+    tags(
+        (name = "projects", description = "Project management endpoints"),
+        (name = "tasks", description = "Task management endpoints"),
+        (name = "health", description = "Health check endpoints")
+    ),
+    info(
+        title = "Rust MVC API",
+        description = "A production-leaning Rust REST API using MVC architecture with ntex framework",
+        version = "0.1.0",
+        contact(
+            name = "API Support",
+            email = "support@rust-mvc-api.com"
+        ),
+        license(
+            name = "MIT",
+            url = "https://opensource.org/licenses/MIT"
+        )
+    ),
+    servers(
+        (url = "http://localhost:8080", description = "Local development server"),
+        (url = "https://api.rust-mvc-api.com", description = "Production server")
+    )
+)]
+pub struct ApiDoc;
+
+#[cfg(feature = "openapi")]
+async fn openapi_spec() -> HttpResponse {
+    HttpResponse::Ok()
+        .content_type("application/json")
+        .json(&ApiDoc::openapi())
+}
+
+#[cfg(feature = "openapi")]
+async fn swagger_ui() -> HttpResponse {
+    let html = include_str!("../static/swagger-ui.html");
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(html)
+}
 
 pub fn configure_routes(config: &mut ServiceConfig) {
     config
@@ -27,4 +100,12 @@ pub fn configure_routes(config: &mut ServiceConfig) {
                 )
         )
         .route("/health", web::get().to(health_check));
+    
+    // Add OpenAPI spec endpoint and Swagger UI
+    #[cfg(feature = "openapi")]
+    {
+        config
+            .route("/openapi.json", web::get().to(openapi_spec))
+            .route("/docs", web::get().to(swagger_ui));
+    }
 }

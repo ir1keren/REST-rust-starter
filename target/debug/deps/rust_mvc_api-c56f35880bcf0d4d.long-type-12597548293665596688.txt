@@ -1,1 +1,0 @@
-fn(HttpRequest, {type error}, ntex::util::Bytes) -> impl std::future::Future<Output = Result<HttpResponse, api_response::ApiError>> {project_controller::create_project}
