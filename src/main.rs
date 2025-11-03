@@ -8,7 +8,7 @@ mod middleware;
 mod routes;
 
 use std::sync::Arc;
-use ntex::web::{self, App, HttpServer, middleware::Logger};
+use ntex::web::{App, HttpServer, middleware::Logger};
 use tracing::info;
 
 use config::Config;

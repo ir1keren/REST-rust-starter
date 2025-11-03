@@ -1033,6 +1033,7 @@ dependencies = [
  "ntex-io",
  "ntex-rt",
  "ntex-service",
+ "ntex-tokio",
  "ntex-util",
  "thiserror 2.0.17",
 ]
@@ -1060,6 +1061,7 @@ dependencies = [
  "futures-timer",
  "log",
  "oneshot",
+ "tokio",
 ]
 
 [[package]]
@@ -1106,6 +1108,19 @@ dependencies = [
  "ntex-net",
  "ntex-service",
  "ntex-util",
+]
+
+[[package]]
+name = "ntex-tokio"
+version = "0.5.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fa57071a4136ac715146348fe7535b79266e46d165d9734ea61469c2ebaae415"
+dependencies = [
+ "log",
+ "ntex-bytes",
+ "ntex-io",
+ "ntex-util",
+ "tokio",
 ]
 
 [[package]]
@@ -1899,6 +1914,7 @@ dependencies = [
  "libc",
  "mio",
  "pin-project-lite",
+ "signal-hook-registry",
  "socket2 0.6.1",
  "tokio-macros",
  "windows-sys 0.61.2",
