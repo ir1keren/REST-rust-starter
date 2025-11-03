@@ -1,7 +1,7 @@
 # Rust MVC API - Makefile
 # Cross-platform build automation
 
-.PHONY: help build test run clean fmt clippy check docs container-build container-run container-test
+.PHONY: help build test run clean fmt clippy check docs podman-build podman-run podman-test docker-build docker-run docker-test container-build container-run container-test
 
 # Default target
 help:
@@ -17,6 +17,16 @@ help:
 	@echo "  docs          - Generate and open documentation"
 	@echo ""
 	@echo "Container (Podman):"
+	@echo "  podman-build  - Build container image with Podman"
+	@echo "  podman-run    - Run container with Podman"
+	@echo "  podman-test   - Test container endpoints with Podman"
+	@echo ""
+	@echo "Container (Docker):"
+	@echo "  docker-build  - Build container image with Docker"
+	@echo "  docker-run    - Run container with Docker"
+	@echo "  docker-test   - Test container endpoints with Docker"
+	@echo ""
+	@echo "Container (Default to Podman):"
 	@echo "  container-build - Build container image"
 	@echo "  container-run   - Run container"
 	@echo "  container-test  - Test container endpoints"
@@ -52,13 +62,13 @@ docs:
 	@echo "📚 Generating documentation..."
 	cargo doc --open
 
-# Container targets
-container-build:
-	@echo "🐳 Building container image..."
+# Container targets (Podman)
+podman-build:
+	@echo "🐳 Building container image with Podman..."
 	podman build -t rust-mvc-api:latest -f Podmanfile .
 
-container-run:
-	@echo "🚀 Starting container..."
+podman-run:
+	@echo "🚀 Starting container with Podman..."
 	podman run -d --name rust-api -p 8080:8080 \
 		-e SERVER_HOST=0.0.0.0 \
 		-e SERVER_PORT=8080 \
@@ -66,12 +76,38 @@ container-run:
 		rust-mvc-api:latest
 	@echo "✅ Container started on http://localhost:8080"
 
-container-test:
-	@echo "🧪 Testing container..."
+podman-test:
+	@echo "🧪 Testing container with Podman..."
 	@sleep 5  # Wait for container to start
 	curl -f http://localhost:8080/health
-	curl -f http://localhost:8080/api/projects
+	curl -f http://localhost:8080/api/v1/projects
 	@echo "✅ Container tests passed!"
+
+# Container targets (Docker)
+docker-build:
+	@echo "🐳 Building container image with Docker..."
+	docker build -t rust-mvc-api:latest -f Dockerfile .
+
+docker-run:
+	@echo "🚀 Starting container with Docker..."
+	docker run -d --name rust-api -p 8080:8080 \
+		-e SERVER_HOST=0.0.0.0 \
+		-e SERVER_PORT=8080 \
+		-e RUST_LOG=info \
+		rust-mvc-api:latest
+	@echo "✅ Container started on http://localhost:8080"
+
+docker-test:
+	@echo "🧪 Testing container with Docker..."
+	@sleep 5  # Wait for container to start
+	curl -f http://localhost:8080/health
+	curl -f http://localhost:8080/api/v1/projects
+	@echo "✅ Container tests passed!"
+
+# Convenience targets (default to Podman)
+container-build: podman-build
+container-run: podman-run
+container-test: podman-test
 
 # Maintenance targets
 clean:
