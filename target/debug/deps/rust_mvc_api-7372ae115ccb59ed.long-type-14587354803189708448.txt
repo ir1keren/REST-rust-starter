@@ -1,1 +1,0 @@
-fn({type error}, {type error}) -> impl std::future::Future<Output = {type error}> {task_controller::create_task}

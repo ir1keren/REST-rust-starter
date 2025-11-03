@@ -1,1 +1,0 @@
-fn({type error}, {type error}) -> impl futures::Future<Output = {type error}> {task_controller::delete_task}

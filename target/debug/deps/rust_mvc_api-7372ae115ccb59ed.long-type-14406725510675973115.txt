@@ -1,1 +1,0 @@
-fn({type error}, {type error}, {type error}) -> impl std::future::Future<Output = {type error}> {project_controller::update_project}
