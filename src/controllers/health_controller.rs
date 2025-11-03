@@ -1,5 +1,5 @@
-use ntex::web::HttpResponse;
 use chrono::Utc;
+use ntex::web::HttpResponse;
 
 #[cfg(feature = "openapi")]
 use utoipa::{ToResponse, ToSchema};
@@ -26,6 +26,6 @@ pub async fn health_check() -> HttpResponse {
         timestamp: Utc::now().to_rfc3339(),
         version: env!("CARGO_PKG_VERSION").to_string(),
     };
-    
+
     HttpResponse::Ok().json(&response)
 }

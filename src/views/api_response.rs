@@ -1,5 +1,5 @@
-use ntex::web::{HttpResponse, WebResponseError};
 use ntex::http::StatusCode;
+use ntex::web::{HttpResponse, WebResponseError};
 use serde::Serialize;
 use thiserror::Error;
 
@@ -30,7 +30,7 @@ impl<T> ApiResponse<T> {
             error: None,
         }
     }
-    
+
     pub fn error(error: ErrorResponse) -> Self {
         Self {
             success: false,
@@ -44,19 +44,19 @@ impl<T> ApiResponse<T> {
 pub enum ApiError {
     #[error("Resource not found: {resource}")]
     NotFound { resource: String },
-    
+
     #[error("Bad request: {message}")]
     BadRequest { message: String },
-    
+
     #[error("Validation error: {message}")]
     ValidationError { message: String },
-    
+
     #[error("Internal server error")]
     InternalServerError,
-    
+
     #[error("Repository error: {message}")]
     RepositoryError { message: String },
-    
+
     #[error("Conflict: {message}")]
     Conflict { message: String },
 }
@@ -67,31 +67,31 @@ impl ApiError {
             resource: resource.to_string(),
         }
     }
-    
+
     pub fn bad_request(message: &str) -> Self {
         Self::BadRequest {
             message: message.to_string(),
         }
     }
-    
+
     pub fn validation_error(message: &str) -> Self {
         Self::ValidationError {
             message: message.to_string(),
         }
     }
-    
+
     pub fn repository_error(message: &str) -> Self {
         Self::RepositoryError {
             message: message.to_string(),
         }
     }
-    
+
     pub fn conflict(message: &str) -> Self {
         Self::Conflict {
             message: message.to_string(),
         }
     }
-    
+
     fn to_error_response(&self) -> ErrorResponse {
         match self {
             ApiError::NotFound { resource } => ErrorResponse {
@@ -126,7 +126,7 @@ impl ApiError {
             },
         }
     }
-    
+
     fn status_code(&self) -> StatusCode {
         match self {
             ApiError::NotFound { .. } => StatusCode::NOT_FOUND,

@@ -8,11 +8,8 @@ pub fn init_logging() {
                 .with_thread_ids(true)
                 .with_level(true)
                 .with_file(true)
-                .with_line_number(true)
+                .with_line_number(true),
         )
-        .with(
-            EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| EnvFilter::new("info"))
-        )
+        .with(EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")))
         .init();
 }

@@ -1,6 +1,6 @@
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
-use chrono::{DateTime, Utc};
 
 #[cfg(feature = "openapi")]
 use utoipa::ToSchema;
@@ -46,7 +46,7 @@ impl Task {
             updated_at: now,
         }
     }
-    
+
     pub fn update(&mut self, update: TaskUpdate) {
         if let Some(title) = update.title {
             self.title = title;

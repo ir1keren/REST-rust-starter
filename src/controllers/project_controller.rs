@@ -1,8 +1,8 @@
-use ntex::web::{HttpResponse, types::Path};
+use crate::models::project::{Project, ProjectCreate, ProjectUpdate};
+use crate::views::{ApiError, ApiResponse};
+use ntex::web::{types::Path, HttpResponse};
 use serde_json;
 use uuid::Uuid;
-use crate::views::{ApiResponse, ApiError};
-use crate::models::project::{Project, ProjectCreate, ProjectUpdate};
 
 #[cfg(feature = "openapi")]
 use utoipa;

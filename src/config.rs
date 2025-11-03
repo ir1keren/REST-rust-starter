@@ -11,7 +11,7 @@ pub struct Config {
 impl Config {
     pub fn from_env() -> Self {
         dotenv::dotenv().ok();
-        
+
         Self {
             host: env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string()),
             port: env::var("PORT")
@@ -21,7 +21,7 @@ impl Config {
             log_level: env::var("RUST_LOG").unwrap_or_else(|_| "info".to_string()),
         }
     }
-    
+
     pub fn address(&self) -> String {
         format!("{}:{}", self.host, self.port)
     }

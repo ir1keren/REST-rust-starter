@@ -1,9 +1,8 @@
-use ntex::web::{self, ServiceConfig, HttpResponse};
 use crate::controllers::{
-    health_check,
-    create_project, get_project, list_projects, update_project, delete_project,
-    create_task, get_task, list_tasks, update_task, delete_task,
+    create_project, create_task, delete_project, delete_task, get_project, get_task, health_check,
+    list_projects, list_tasks, update_project, update_task,
 };
+use ntex::web::{self, HttpResponse, ServiceConfig};
 
 #[cfg(feature = "openapi")]
 use utoipa::OpenApi;
@@ -73,9 +72,7 @@ async fn openapi_spec() -> HttpResponse {
 #[cfg(feature = "openapi")]
 async fn swagger_ui() -> HttpResponse {
     let html = include_str!("../static/swagger-ui.html");
-    HttpResponse::Ok()
-        .content_type("text/html")
-        .body(html)
+    HttpResponse::Ok().content_type("text/html").body(html)
 }
 
 pub fn configure_routes(config: &mut ServiceConfig) {
@@ -88,7 +85,7 @@ pub fn configure_routes(config: &mut ServiceConfig) {
                         .route("", web::get().to(list_projects))
                         .route("/{id}", web::get().to(get_project))
                         .route("/{id}", web::put().to(update_project))
-                        .route("/{id}", web::delete().to(delete_project))
+                        .route("/{id}", web::delete().to(delete_project)),
                 )
                 .service(
                     web::scope("/tasks")
@@ -96,11 +93,11 @@ pub fn configure_routes(config: &mut ServiceConfig) {
                         .route("", web::get().to(list_tasks))
                         .route("/{id}", web::get().to(get_task))
                         .route("/{id}", web::put().to(update_task))
-                        .route("/{id}", web::delete().to(delete_task))
-                )
+                        .route("/{id}", web::delete().to(delete_task)),
+                ),
         )
         .route("/health", web::get().to(health_check));
-    
+
     // Add OpenAPI spec endpoint and Swagger UI
     #[cfg(feature = "openapi")]
     {
