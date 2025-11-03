@@ -16,6 +16,7 @@ use repositories::{ProjectRepository, TaskRepository};
 use services::{ProjectService, TaskService};
 use middleware::{cors_middleware, init_logging};
 use routes::configure_routes;
+use ntex_remove_trailing_slash::RemoveTrailingSlash;
 
 #[ntex::main]
 async fn main() -> std::io::Result<()> {
@@ -39,6 +40,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(Logger::default())
             .wrap(cors_middleware())
+            .wrap(RemoveTrailingSlash::default())
             .configure(configure_routes)
     })
     .bind(&config.address())?

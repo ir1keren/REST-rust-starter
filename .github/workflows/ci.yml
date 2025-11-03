@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, openapi, ci-docker ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run tests
+        run: cargo test --verbose
+
+      - name: Check build
+        run: cargo build --verbose --release
+
+  build-container:
+    name: Build Container
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ci-docker'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
+
+      - name: Build image with Podman
+        run: |
+          podman build -t rust-mvc-api:latest -f Podmanfile .
+
+      - name: Test container
+        run: |
+          # Run container in background
+          podman run -d --name test-api -p 8080:8080 rust-mvc-api:latest
+          
+          # Wait for container to start
+          sleep 10
+          
+          # Test health endpoint
+          curl -f http://localhost:8080/health || exit 1
+          
+          # Test API endpoints
+          curl -f http://localhost:8080/api/projects || exit 1
+          
+          # Cleanup
+          podman stop test-api
+          podman rm test-api
+
+      - name: Save image (optional - for artifact storage)
+        run: |
+          podman save rust-mvc-api:latest | gzip > rust-mvc-api.tar.gz
+          
+      - name: Upload container artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-image
+          path: rust-mvc-api.tar.gz
+          retention-days: 7

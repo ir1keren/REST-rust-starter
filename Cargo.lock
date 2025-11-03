@@ -721,6 +721,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ntex-remove-trailing-slash"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "65fa4f98044fdfaac98a599ec50cd6bd194a702b9975afc80e711fef4672281e"
+dependencies = [
+ "ntex",
+ "regex",
+]
+
+[[package]]
 name = "ntex-router"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -988,6 +998,7 @@ dependencies = [
  "dotenv",
  "futures",
  "ntex",
+ "ntex-remove-trailing-slash",
  "serde",
  "serde_json",
  "thiserror 1.0.69",
