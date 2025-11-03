@@ -5,7 +5,7 @@ use std::env;
 pub struct Config {
     pub host: String,
     pub port: u16,
-    pub log_level: String,
+//    pub log_level: String,
 }
 
 impl Config {
@@ -18,7 +18,7 @@ impl Config {
                 .unwrap_or_else(|_| "8080".to_string())
                 .parse()
                 .expect("PORT must be a valid number"),
-            log_level: env::var("RUST_LOG").unwrap_or_else(|_| "info".to_string()),
+            //log_level: env::var("RUST_LOG").unwrap_or_else(|_| "info".to_string()),
         }
     }
 
